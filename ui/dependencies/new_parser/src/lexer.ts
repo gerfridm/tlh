@@ -1,7 +1,9 @@
 import {
   Asterisk,
   Degree,
+  Dot,
   DoubleParagraphSeparator,
+  Ellipsis,
   Equal,
   ExclamationMark,
   LeftBrace,
@@ -74,29 +76,21 @@ export function lex(source: string): Token[] {
       case '°':
         tokens.push(Degree);
         break;
+      case '…':
+        tokens.push(Ellipsis);
+        break;
+      case '.':
+        // FIXME!
+        tokens.push(stringIterator.nextTwoIf('.', '.') !== undefined ? Ellipsis : Dot);
+        break;
       case '§':
-        if (stringIterator.nextIf('§') !== undefined) {
-          // FIXME: paragraph separator!
-          tokens.push(DoubleParagraphSeparator);
-        } else {
-          tokens.push(SingleParagraphSeparator);
-        }
+        tokens.push(stringIterator.nextIf('§') !== undefined ? DoubleParagraphSeparator : SingleParagraphSeparator);
         break;
       case '=':
-        if (stringIterator.nextTwoIf('=', '=') !== undefined) {
-          tokens.push(DoubleParagraphSeparator);
-          stringIterator.next();
-          stringIterator.next();
-        } else {
-          tokens.push(Equal);
-        }
+        tokens.push(stringIterator.nextTwoIf('=', '=') !== undefined ? DoubleParagraphSeparator : Equal);
         break;
       case '¬':
-        if (stringIterator.nextTwoIf('¬', '¬') !== undefined) {
-          tokens.push(SingleParagraphSeparator);
-        } else {
-          tokens.push(Negation);
-        }
+        tokens.push(stringIterator.nextTwoIf('¬', '¬') !== undefined ? SingleParagraphSeparator : Negation);
         break;
       case ' ':
       case '\t':

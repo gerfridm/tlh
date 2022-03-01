@@ -30,8 +30,20 @@ export const Asterisk = {_type: 'Asterisk'};
 export const Degree = {_type: 'Degree'};
 export const Equal = {_type: 'Equal'};
 export const Negation = {_type: 'Negation'};
+export const Dot = {_type: 'Dot'};
+export const Ellipsis = {_type: 'Ellipsis'};
 
-export type PunctuationMarks = typeof ExclamationMark | typeof QuestionMark | typeof Minus | typeof Underscore | typeof Asterisk | typeof Degree | typeof Equal | typeof Negation;
+export type PunctuationMarks =
+  typeof ExclamationMark
+  | typeof QuestionMark
+  | typeof Minus
+  | typeof Underscore
+  | typeof Asterisk
+  | typeof Degree
+  | typeof Equal
+  | typeof Negation
+  | typeof Dot
+  | typeof Ellipsis;
 
 // Paragraph end markers
 export const SingleParagraphSeparator = {_type: 'SingleParagraphSeparator'};
