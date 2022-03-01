@@ -37,6 +37,14 @@ export class StringIterator {
       : undefined;
   }
 
+  nextTwoIf(first: string, second: string): undefined | [string, string] {
+    const [firstPeeked, secondPeeked] = this.peekTwo();
+
+    return firstPeeked === first && secondPeeked === second
+      ? [this.next() as string, this.next() as string]
+      : undefined;
+  }
+
   getPosition(): number {
     return this.position;
   }

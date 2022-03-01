@@ -73,4 +73,18 @@ describe('StringIterator', () => {
 
     expect(si.next()).toEqual(undefined);
   });
+
+  it('should nextTwoIf', () => {
+    const si = new StringIterator('this');
+
+    expect(si.nextTwoIf('a', 'b')).toEqual(undefined);
+    expect(si.nextTwoIf('t', 'e')).toEqual(undefined);
+    expect(si.getPosition()).toEqual(-1);
+
+    expect(si.nextTwoIf('t', 'h')).toEqual(['t', 'h']);
+    expect(si.getPosition()).toEqual(1);
+
+    expect(si.nextTwoIf('i', 's')).toEqual(['i', 's']);
+    expect(si.getPosition()).toEqual(3);
+  });
 });

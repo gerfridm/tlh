@@ -1,7 +1,7 @@
 import {transliteration} from './parser';
 import {determinativ} from '../model/wordContent/determinativ';
 import {materLectionis} from '../model/wordContent/materLectionis';
-import {damageContent, DamageType} from '../model/wordContent/damages';
+import {damageContent} from '../model/wordContent/damages';
 import {aoCorr} from '../model/wordContent/corrections';
 import {aoEllipsis} from '../model/wordContent/ellipsis';
 import {aoSign} from '../model/wordContent/sign';

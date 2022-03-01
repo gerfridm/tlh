@@ -11,10 +11,8 @@ import {sumerogramm as sg} from '../model/wordContent/sumerogramm';
 import {aoIllegibleContent} from '../model/wordContent/illegible';
 import {aoKolonMark} from '../model/wordContent/kolonMark';
 import {aoNote} from '../model/wordContent/footNote';
-import {aoGap} from '../model/sentenceContent/gap';
 import {indexDigit as id} from '../model/wordContent/indexDigit';
 import {inscribedLetter} from '../model/wordContent/inscribedLetter';
-import {paragraphSeparator, paragraphSeparatorDouble} from '../model/paragraph';
 
 describe.skip('The transliteration parser', () => {
 
