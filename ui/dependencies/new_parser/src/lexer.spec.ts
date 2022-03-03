@@ -2,7 +2,8 @@ import {lex} from './lexer';
 import {
   Asterisk,
   Degree,
-  DoubleParagraphSeparator, Ellipsis,
+  DoubleParagraphSeparator,
+  Ellipsis,
   Equal,
   ExclamationMark,
   LeftBrace,
@@ -43,5 +44,9 @@ describe('lexer', () => {
   it('should parse an ellipsis', () => {
     expect(lex('…')).toEqual([Ellipsis]);
     expect(lex('...')).toEqual([Ellipsis]);
+  });
+
+  it('should lex lines', () => {
+    expect(lex('')).toEqual([]);
   });
 });
