@@ -2,6 +2,7 @@ import {lex} from './lexer';
 import {
   Asterisk,
   Degree,
+  Dot,
   DoubleParagraphSeparator,
   Ellipsis,
   Equal,
@@ -27,7 +28,7 @@ describe('lexer', () => {
   });
 
   it('should lex punctuation marks', () => {
-    expect(lex('!?-_*°=¬')).toEqual([ExclamationMark, QuestionMark, Minus, Underscore, Asterisk, Degree, Equal, Negation]);
+    expect(lex('!?-_*°=¬.')).toEqual([ExclamationMark, QuestionMark, Minus, Underscore, Asterisk, Degree, Equal, Negation, Dot]);
   });
 
   it('should parse paragraph separators', () => {

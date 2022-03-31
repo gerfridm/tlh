@@ -2,11 +2,11 @@
 export const LeftParenthesis = {_type: 'LeftParenthesis'};
 export const RightParenthesis = {_type: 'RightParenthesis'};
 
-export const LeftBracket = {_type: 'LeftBracket'};
-export const RightBracket = {_type: 'RightBracket'};
+export const LeftBracket = '[';
+export const RightBracket = ']';
 
-export const LeftBrace = {_type: 'LeftBrace'};
-export const RightBrace = {_type: 'RightBrace'};
+export const LeftBrace = '{';
+export const RightBrace = '}';
 
 export const TopLeftHalfBracket = {_type: 'TopLeftHalfBracket'};
 export const TopRightHalfBracket = {_type: 'TopRightHalfBracket'};

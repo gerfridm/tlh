@@ -24,20 +24,6 @@ const materLectionisCases: [string][] = [['abc'], ['xyz']];
 const curlyBraceCases: [string][] = [['AN'], ['Anderer Text!'], ['Text : mit : Doppel:punkten']];
 
 export function testParseDamages(parser: Parser<AOWordContent>): void {
-
- /*
-   ${'<<'} | ${DamageType.SurplusStart}
-  ${'>>'} | ${DamageType.SurplusEnd}
-  ${'〈〈'} | ${DamageType.SurplusStart}
-  ${'〉〉'} | ${DamageType.SurplusEnd}
-  ${'<'}  | ${DamageType.SupplementStart}
-  ${'>'}  | ${DamageType.SupplementEnd}
-  ${'〈'}  | ${DamageType.SupplementStart}
-  ${'〉'}  | ${DamageType.SupplementEnd}
-  ${'('}  | ${DamageType.UnknownDamageStart}
-  ${')'}  | ${DamageType.UnknownDamageEnd}
-  */
-
   test.each`
   toParse | expected
   ${'['}  | ${'del_in'}

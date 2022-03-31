@@ -96,6 +96,8 @@ export function lex(source: string): Token[] {
       case '\t':
         // Ignore whitespace
         break;
+      case '\n':
+        throw new Error('unexpected newline!');
       default:
         console.info(currentCharacter);
         throw new Error('TODO!');
