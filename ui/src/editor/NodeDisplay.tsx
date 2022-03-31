@@ -3,8 +3,6 @@ import {EditTriggerFunc} from './editorConfig/editorConfig';
 import {tlhXmlEditorConfig} from './editorConfig/tlhXmlEditorConfig';
 import classNames from 'classnames';
 import {NodePath} from './insertablePositions';
-import {IoAddOutline} from 'react-icons/io5';
-import {Fragment} from 'react';
 
 export interface InsertStuff {
   insertablePaths: string[];
@@ -18,30 +16,38 @@ export interface NodeDisplayIProps {
   onSelect?: EditTriggerFunc;
   path?: NodePath;
   insertStuff?: InsertStuff;
+  isLeftSide: boolean;
 }
 
-export function NodeDisplay({node, currentSelectedPath, onSelect, path = [], insertStuff}: NodeDisplayIProps): JSX.Element {
+
+function InsertButton({initiate}: { initiate: () => void }): JSX.Element {
+  return (
+    <button type="button" onClick={initiate} className="mx-2 px-2 rounded bg-teal-100">+</button>
+  );
+}
+
+export function NodeDisplay({node, path = [], ...inheritedProps}: NodeDisplayIProps): JSX.Element {
+
   if (isXmlTextNode(node)) {
     return <span>{node.textContent}</span>;
   }
 
+  const {currentSelectedPath, onSelect, insertStuff, isLeftSide} = inheritedProps;
+
   const currentConfig = tlhXmlEditorConfig.nodeConfigs[node.tagName];
 
   const renderedChildren = <>
-    {node.children.map((c, i) => <Fragment key={i}>
-        <NodeDisplay node={c} currentSelectedPath={currentSelectedPath} onSelect={onSelect} path={[...path, i]} insertStuff={insertStuff}/>
-      </Fragment>
-    )}
+    {node.children.map((c, i) => <NodeDisplay key={i} node={c} path={[...path, i]} {...inheritedProps}/>)}
   </>;
 
   const isSelected = !!currentSelectedPath && path.join('.') === currentSelectedPath.join('.');
 
   const display = currentConfig && currentConfig.replace
-    ? currentConfig.replace(node, renderedChildren, isSelected)
+    ? currentConfig.replace(node, renderedChildren, isSelected, isLeftSide)
     : renderedChildren;
 
   const classes = currentConfig && currentConfig.styling
-    ? currentConfig.styling(node, isSelected)
+    ? currentConfig.styling(node, isSelected, isLeftSide)
     : [];
 
   const onClick = currentConfig && 'edit' in currentConfig && onSelect
@@ -50,14 +56,10 @@ export function NodeDisplay({node, currentSelectedPath, onSelect, path = [], ins
 
   return (
     <>
-      {insertStuff && insertStuff.insertablePaths.includes(path.join('.')) &&
-        <span>&nbsp;
-          <button onClick={() => insertStuff.initiateInsert(path)}><IoAddOutline/></button>
-          &nbsp;&nbsp;</span>}
+      {insertStuff && insertStuff.insertablePaths.includes(path.join('.')) && <InsertButton initiate={() => insertStuff.initiateInsert(path)}/>}
       <span className={classNames(classes)} onClick={onClick}>{display}</span>
       {insertStuff && insertStuff.insertAsLastChildOf.includes(node.tagName) &&
-        <span><button onClick={() => insertStuff.initiateInsert([...path, node.children.length])}><IoAddOutline/></button>
-          &nbsp;</span>}
+        <InsertButton initiate={() => insertStuff.initiateInsert([...path, node.children.length])}/>}
     </>
   );
 }

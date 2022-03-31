@@ -11,9 +11,9 @@ export interface LineBreakData {
 }
 
 export const lineBreakNodeConfig: XmlSingleEditableNodeConfig<LineBreakData> = {
-  replace: (node, _renderedChildren, isSelected) => (
+  replace: (node, _renderedChildren, isSelected, isLeftSide) => (
     <>
-      <br/>
+      {isLeftSide && <br/>}
       <span className={classNames(isSelected ? [selectedNodeClass, 'text-black'] : ['text-gray-500'])}>{node.attributes.lnr}:</span>
       &nbsp;&nbsp;&nbsp;
     </>
@@ -32,7 +32,7 @@ export const lineBreakNodeConfig: XmlSingleEditableNodeConfig<LineBreakData> = {
     }
   }),
   insertablePositions: {
-    beforeElement: ['lb', 'w'],
+    beforeElement: ['lb', 'w', 'gap'],
     asLastChildOf: ['div1']
   }
 };

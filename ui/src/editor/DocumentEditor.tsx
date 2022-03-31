@@ -258,25 +258,29 @@ export function DocumentEditor<T>({node: initialNode, download, filename, closeF
   }
 
   function deleteNode(path: number[]): void {
-    setState((state) => update(state, {
-        rootNode: path.slice(0, -1).reduceRight<Spec<XmlNode>>(
-          (acc, index) => ({children: {[index]: acc}}),
-          {children: {$splice: [[path[path.length - 1], 1]]}}
-        ),
-        editorState: {$set: undefined},
-        changed: {$set: true}
-      })
-    );
+    if (confirm(t('deleteThisElement'))) {
+      setState((state) => update(state, {
+          rootNode: path.slice(0, -1).reduceRight<Spec<XmlNode>>(
+            (acc, index) => ({children: {[index]: acc}}),
+            {children: {$splice: [[path[path.length - 1], 1]]}}
+          ),
+          editorState: {$set: undefined},
+          changed: {$set: true}
+        })
+      );
+    }
   }
 
   function renderNodeEditor({node, data, path, changed}: IEditNodeState<T>): JSX.Element {
     return (editorConfig.nodeConfigs[node.tagName] as XmlSingleEditableNodeConfig<T>).edit({
+      originalNode: node,
       data,
       path,
       changed,
       updateNode: (data) => updateEditedNode(data),
       deleteNode: () => deleteNode(path),
       initiateJumpElement: (forward) => jumpEditableNodes(node.tagName, forward),
+      keyHandlingEnabled: state.keyHandlingEnabled,
       setKeyHandlingEnabled: (value) => setState((state) => update(state, {keyHandlingEnabled: {$set: value}})),
       initiateSubmit: () => updateNode()
     });
@@ -297,8 +301,11 @@ export function DocumentEditor<T>({node: initialNode, download, filename, closeF
   }
 
   function initiateInsert(path: NodePath): void {
+
     if (state.editorState && 'tagName' in state.editorState) {
       const node: XmlElementNode = {tagName: state.editorState.tagName, attributes: {}, children: []};
+
+      console.info(node);
 
       setState((state) => update(state, {
         rootNode: path.slice(0, -1).reduceRight<Spec<XmlNode>>(
@@ -336,7 +343,8 @@ export function DocumentEditor<T>({node: initialNode, download, filename, closeF
       }
     },
     updateNode: (node) => setState((state) => update(state, {rootNode: {$set: node}})),
-    setKeyHandlingEnabled: (value) => setState((state) => update(state, {keyHandlingEnabled: {$set: value}}))
+    setKeyHandlingEnabled: (value) => setState((state) => update(state, {keyHandlingEnabled: {$set: value}})),
+    isLeftSide: true
   };
 
   return (

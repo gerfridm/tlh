@@ -3,27 +3,24 @@ import {Argument as ClassNamesArgument} from 'classnames';
 import {InsertablePositions, NodePath} from '../insertablePositions';
 import {Spec} from 'immutability-helper';
 
-type ReplaceFunc = (node: XmlElementNode, renderedChildren: JSX.Element, isSelected: boolean) => JSX.Element;
-
-type NodeStylingFunc = (node: XmlElementNode, isSelected: boolean) => ClassNamesArgument;
-
 export type EditTriggerFunc = (node: XmlElementNode, path: NodePath) => void;
 
-
 export interface XmlEditableNodeIProps<T = XmlElementNode> {
+  originalNode: XmlElementNode;
   data: T;
   changed: boolean;
   path: number[];
   updateNode: (spec: Spec<T>) => void;
   deleteNode: () => void;
+  keyHandlingEnabled: boolean,
   setKeyHandlingEnabled: (enabled: boolean) => void;
   initiateJumpElement: (forward: boolean) => void;
   initiateSubmit: () => void;
 }
 
 export interface XmlSingleNodeConfig {
-  replace?: ReplaceFunc;
-  styling?: NodeStylingFunc;
+  replace?: (node: XmlElementNode, renderedChildren: JSX.Element, isSelected: boolean, isLeftSide: boolean) => JSX.Element;
+  styling?: (node: XmlElementNode, isSelected: boolean, isLeftSide: boolean) => ClassNamesArgument;
   insertablePositions?: InsertablePositions;
 }
 
