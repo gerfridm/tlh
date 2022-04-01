@@ -21,7 +21,7 @@ describe('parseDamage', () => {
     {toParse: [TopRightHalfBracket], expected: Right(['laes_fin', []])},
   ])(
     'it should parse $toParse as $expected',
-    ({toParse, expected}) => expect(parseDamage(toParse)).toEqual(expected)
+    ({toParse, expected}) => expect(parseDamage.parse(toParse)).toEqual(expected)
   );
 });
 
@@ -33,6 +33,6 @@ describe('parseParagraphSeparator', () => {
     {toParse: [DoubleParagraphSeparator], expected: Right([DoubleParagraphSeparator, []])},
   ])(
     'it should parse $toParse as $expected',
-    ({toParse, expected}) => expect(parseParagraphSeparator(toParse)).toEqual(expected)
+    ({toParse, expected}) => expect(parseParagraphSeparator.parse(toParse)).toEqual(expected)
   );
 });

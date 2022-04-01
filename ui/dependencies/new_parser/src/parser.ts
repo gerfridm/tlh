@@ -8,8 +8,9 @@ import {
   TopLeftHalfBracket,
   TopRightHalfBracket
 } from './token';
-import {alt, map, Parser, ParseResult, token} from './baseParser';
+import {Parser, ParseResult, token} from './baseParser';
 import {DamageType} from '../../../src/model/wordContent/damages';
+import {alt} from './combinators';
 
 
 export function parse(tokens: Token[]): ParseResult<any> {
@@ -25,10 +26,10 @@ function parseWord(tokens: Token[]): ParseResult<any> {
 }
 
 export const parseDamage: Parser<DamageType> = alt(
-  map(token(LeftBracket), () => 'del_in'),
-  map(token(RightBracket), () => 'del_fin'),
-  map(token(TopLeftHalfBracket), () => 'laes_in'),
-  map(token(TopRightHalfBracket), () => 'laes_fin'),
+  token(LeftBracket).map(() => 'del_in'),
+  token(RightBracket).map(() => 'del_fin'),
+  token(TopLeftHalfBracket).map(() => 'laes_in'),
+  token(TopRightHalfBracket).map(() => 'laes_fin'),
 );
 
 export const parseParagraphSeparator: Parser<ParagraphSeparator> = alt(
