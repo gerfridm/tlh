@@ -1,5 +1,6 @@
 import {
   DoubleParagraphSeparator,
+  Ellipsis,
   LeftBracket,
   ParagraphSeparator,
   RightBracket,
@@ -36,3 +37,5 @@ export const parseParagraphSeparator: Parser<ParagraphSeparator> = alt(
   token(SingleParagraphSeparator),
   token(DoubleParagraphSeparator)
 );
+
+export const ellipsis = token(Ellipsis);

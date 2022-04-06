@@ -1,6 +1,6 @@
 // Parentheses, Brackets, Braces, ...
-export const LeftParenthesis = {_type: 'LeftParenthesis'};
-export const RightParenthesis = {_type: 'RightParenthesis'};
+export const LeftParenthesis = '(';
+export const RightParenthesis = ')';
 
 export const LeftBracket = '[';
 export const RightBracket = ']';
@@ -8,8 +8,8 @@ export const RightBracket = ']';
 export const LeftBrace = '{';
 export const RightBrace = '}';
 
-export const TopLeftHalfBracket = {_type: 'TopLeftHalfBracket'};
-export const TopRightHalfBracket = {_type: 'TopRightHalfBracket'};
+export const TopLeftHalfBracket = '⸢';
+export const TopRightHalfBracket = '⸣';
 
 export type Clamps = typeof LeftParenthesis
   | typeof RightParenthesis
@@ -22,16 +22,16 @@ export type Clamps = typeof LeftParenthesis
 
 // Punctuation marks
 
-export const ExclamationMark = {_type: 'ExclamationMark'};
-export const QuestionMark = {_type: 'QuestionMark'};
-export const Minus = {_type: 'Minus'};
-export const Underscore = {_type: 'Underscore'};
-export const Asterisk = {_type: 'Asterisk'};
-export const Degree = {_type: 'Degree'};
-export const Equal = {_type: 'Equal'};
-export const Negation = {_type: 'Negation'};
-export const Dot = {_type: 'Dot'};
-export const Ellipsis = {_type: 'Ellipsis'};
+export const ExclamationMark = '!';
+export const QuestionMark = '?';
+export const Minus = '-';
+export const Underscore = '_';
+export const Asterisk = '*';
+export const Degree = '°';
+export const Equal = '=';
+export const Negation = '¬';
+export const Dot = '.';
+export const Ellipsis = '…';
 
 export type PunctuationMarks =
   typeof ExclamationMark
@@ -51,6 +51,18 @@ export const DoubleParagraphSeparator = {_type: 'DoubleParagraphSeparator'};
 
 export type ParagraphSeparator = typeof SingleParagraphSeparator | typeof DoubleParagraphSeparator;
 
+// Text
+
+export interface LowerCaseTextToken {
+  lowerText: string;
+}
+
+export interface UpperCaseTextToken {
+  upperText: string;
+}
+
+export type TextToken = LowerCaseTextToken | UpperCaseTextToken;
+
 // TODO...
 
-export type Token = Clamps | PunctuationMarks | ParagraphSeparator;
+export type Token = TextToken | Clamps | PunctuationMarks | ParagraphSeparator;

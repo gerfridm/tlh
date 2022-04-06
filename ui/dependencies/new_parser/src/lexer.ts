@@ -23,6 +23,8 @@ import {
 } from './token';
 import {StringIterator} from './stringIterator';
 
+const lowerCharacterRegex = /^[\p{Ll}]$/u;
+
 export function lex(source: string): Token[] {
 
   const stringIterator = new StringIterator(source);
@@ -99,8 +101,12 @@ export function lex(source: string): Token[] {
       case '\n':
         throw new Error('unexpected newline!');
       default:
-        console.info(currentCharacter);
-        throw new Error('TODO!');
+        // check if alphanumeric
+        if (currentCharacter.match(lowerCharacterRegex)) {
+          console.info(currentCharacter);
+        } else {
+          throw new Error('Illegal character ' + currentCharacter);
+        }
     }
 
     currentCharacter = stringIterator.next();
