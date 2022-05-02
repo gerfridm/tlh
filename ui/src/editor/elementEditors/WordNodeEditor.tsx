@@ -29,7 +29,8 @@ export function WordNodeEditor({
   keyHandlingEnabled,
   setKeyHandlingEnabled,
   initiateJumpElement,
-  initiateSubmit
+  initiateSubmit,
+  fontSizeSelectorProps
 }: XmlEditableNodeIProps<WordNodeData>): JSX.Element {
 
   const {t} = useTranslation('common');
@@ -134,7 +135,7 @@ export function WordNodeEditor({
 
   return (
     <NodeEditorRightSide originalNode={originalNode} changed={changed} initiateSubmit={initiateSubmit} jumpElement={initiateJumpElement} deleteNode={deleteNode}
-                         otherButtons={otherButtons}>
+                         otherButtons={otherButtons} fontSizeSelectorProps={fontSizeSelectorProps}>
       {(state.editContent || typeof state.editContent === 'string')
         ? <WordContentEditor initialTransliteration={state.editContent} cancelEdit={cancelEdit} updateNode={handleEditUpdate}/>
         : <>
@@ -158,8 +159,9 @@ export function WordNodeEditor({
               ? <div>
                 <div className="p-4 rounded bg-amber-400 text-center">{t('noMorphologicalAnalysesFound')}</div>
 
-                {data.node.attributes.mrp0sel !== 'DEL' &&
-                  <button type="button" className="mt-2 p-2 rounded bg-blue-600 text-white text-center w-full" onClick={setSelectedMorphToDel}>
+                {data.node.attributes.mrp0sel === 'DEL'
+                  ? <div className="mt-2 p-2 rounded bg-blue-600 text-white text-center w-full">mrp0sel=&quot;DEL&quot;</div>
+                  : <button type="button" className="mt-2 p-2 rounded border border-slate-500 text-center w-full" onClick={setSelectedMorphToDel}>
                     {t('set_mrp0sel=DEL')}
                   </button>}
               </div>
